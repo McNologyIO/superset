@@ -35,7 +35,6 @@ x-common-build: &common-build
 services:
   redis:
     image: redis:7
-    container_name: superset_cache
     restart: unless-stopped
     volumes:
       - redis:/data
@@ -47,7 +46,6 @@ services:
       - path: docker/.env-local # optional override
         required: false
     image: postgres:16
-    container_name: superset_db
     restart: unless-stopped
     volumes:
       - db_home:/var/lib/postgresql/data
@@ -61,7 +59,6 @@ services:
         required: false
     build:
       <<: *common-build
-    container_name: superset_app
     command: ["/app/docker/docker-bootstrap.sh", "app-gunicorn"]
     user: "root"
     restart: unless-stopped
@@ -75,7 +72,6 @@ services:
       SUPERSET_LOG_LEVEL: "${SUPERSET_LOG_LEVEL:-info}"
 
   superset-init:
-    container_name: superset_init
     build:
       <<: *common-build
     command: ["/app/docker/docker-init.sh"]
@@ -100,7 +96,6 @@ services:
   superset-worker:
     build:
       <<: *common-build
-    container_name: superset_worker
     command: ["/app/docker/docker-bootstrap.sh", "worker"]
     env_file:
       - path: docker/.env # default
@@ -125,7 +120,6 @@ services:
   superset-worker-beat:
     build:
       <<: *common-build
-    container_name: superset_worker_beat
     command: ["/app/docker/docker-bootstrap.sh", "beat"]
     env_file:
       - path: docker/.env # default
