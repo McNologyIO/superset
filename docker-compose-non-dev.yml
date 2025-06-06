@@ -33,23 +33,6 @@ x-common-build: &common-build
     - apache/superset-cache:3.10-slim-bookworm
 
 services:
-  redis:
-    image: redis:7
-    restart: unless-stopped
-    volumes:
-      - redis:/data
-
-  db:
-    env_file:
-      - path: docker/.env # default
-        required: true
-      - path: docker/.env-local # optional override
-        required: false
-    image: postgres:16
-    restart: unless-stopped
-    volumes:
-      - db_home:/var/lib/postgresql/data
-      - ./docker/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
 
   superset:
     env_file:
@@ -140,7 +123,4 @@ services:
 volumes:
   superset_home:
     external: false
-  db_home:
-    external: false
-  redis:
-    external: false
+
