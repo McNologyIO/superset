@@ -52,6 +52,7 @@ services:
       - ./docker/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
 
   superset:
+    container_name: superset
     env_file:
       - path: docker/.env # default
         required: true
