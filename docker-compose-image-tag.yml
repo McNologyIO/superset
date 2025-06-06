@@ -5,6 +5,12 @@ x-superset-volumes:
   - superset_home:/app/superset_home
 
 services:
+  redis:
+    image: redis:7
+    restart: unless-stopped
+    volumes:
+      - redis:/data
+      
   superset:
     env_file:
       - path: docker/.env # default
