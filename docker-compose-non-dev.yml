@@ -63,11 +63,7 @@ services:
         required: true
       - path: docker/.env-local # optional override
         required: false
-    depends_on:
-      db:
-        condition: service_started
-      redis:
-        condition: service_started
+    depends_on: []
     user: "root"
     volumes: *superset-volumes
     healthcheck:
