@@ -109,6 +109,6 @@ volumes:
   superset_home:
     external: false
   db_home:
-    external: true
+    external: false
   redis:
-    external: true
+    external: false
